@@ -21,13 +21,15 @@ var birdSchema = new Schema({
     unique : true,
     lowercase : true },    //Convert to lowercase - helpful for validating uniqueness
   description : String,
-  averageEggsLaid : { type : Number, min : 1, max: 50 },     //Handles both integer and float numbers
+  averageEggsLaid : { type : Number, min : 1, max: 50 },
   threatened : { type : Boolean, default : false },     //Is bird vulnerable to extinction?
   dateSeen : { type : Date, default : Date.now }        //Date spotted in the wild
 });
 
 
 var Bird = mongoose.model('Bird', birdSchema);
+
+
 
 module.exports = Bird;
 

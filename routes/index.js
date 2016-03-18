@@ -27,6 +27,7 @@ router.post('/', function(req, res, next) {
   newSighting.save(function(err){
       //Handle validation errors
     if (err) {
+      console.log(err);
       if (err.name == "ValidationError") {
         req.flash('error', 'Invalid data'); // TODO: more helpful error message
         return res.redirect('/')
