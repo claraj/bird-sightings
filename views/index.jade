@@ -8,31 +8,47 @@ block content
       p Name: #{bird.name}
       p Description: #{bird.description}
       p Average Eggs Laid: #{bird.averageEggsLaid}
+      p Nest location #{bird.nestData.location}
+      p Nest Materials #{bird.nestData.materials}
       if bird.threatened
         p This bird is threatened
-      p Date seen: #{bird.dateSeen}
+      p Dates seen:
+        ul
+         for date in bird.datesSeen
+           li #{date}
+      form(action="/addDate", method="POST")
+
+        label Add new date seen
+          input(name="dateSeen" type="date" required)
+        input(name="name" value="#{bird.name}" hidden)
+        input(name="addDate" type="submit" value="Add new date")
 
       hr
 
   .addNewSighting
 
-    if error
-      p #{error)
+    if error.newError
+      p Please check the data entered: #{error.newError)
 
     form(submit='/', method='POST')
       label Name (required)
-        input(label="name", name="name", type="text", required)
+        input(label="name" name="name" type="text" required)
       br
       label Description
-        input(name="description", type="text")
+        input(name="description" type="text")
       br
       label Average Eggs
-        input(name="averageEggsLaid", type="number", min="0")
+        input(name="averageEggsLaid" type="number", min="0")
       br
-      Label Threatened?
-        input(name="threatened", type="checkbox")
+      label Threatened?
+        input(name="threatened" type="checkbox")
+      br
+      label Nest location
+        input(name="location" type="text")
+      label Nest materials
+          input(name="materials" type="text")
       br
       label Date seen (required)
-        input(label="Date seen" name="dateSeen" type="date" )
+        input(label="Date seen" name="dateSeen" type="date")
       br
-      input(type="submit", name="addBird", value="Add new sighting")
+      input(type="submit" name="addBird" value="Add new sighting")
